@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Feedback Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-mode">
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <h1>College Feedback Portal</h1>
+            </div>
+            <div class="user-controls">
+                <div class="theme-toggle">
+                    <button id="theme-toggle-btn">
+                        <i class="fas fa-moon"></i>
+                        <span>Dark Mode</span>
+                    </button>
+                </div>
+                <button id="login-btn" class="primary-btn">Login</button>
+                <button id="register-btn" class="secondary-btn">Register</button>
+                <div class="user-profile hidden">
+                    <span id="user-name">Welcome, User</span>
+                    <button id="logout-btn" class="text-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <div class="sidebar">
+                <div class="user-stats">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-badges">
+                        <h3>Your Badges</h3>
+                        <div class="badges-container" id="user-badges">
+                            <!-- Badges will be added here dynamically -->
+                            <div class="badge-placeholder">Login to see your badges</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn active" data-tab="suggestions">Suggestions</button>
+                    <button class="nav-btn" data-tab="complaints">Complaints</button>
+                    <button class="nav-btn" data-tab="my-feedback">My Feedback</button>
+                    <button class="nav-btn" data-tab="top-voted">Top Voted</button>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="tab-content active" id="suggestions-tab">
+                    <div class="section-header">
+                        <h2>Suggestions</h2>
+                        <button id="add-suggestion-btn" class="primary-btn">
+                            <i class="fas fa-plus"></i> Add Suggestion
+                        </button>
+                    </div>
+                    <div class="filter-container">
+                        <div class="search-box">
+                            <input type="text" id="search-suggestions" placeholder="Search suggestions...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="category-filter">
+                            <select id="suggestion-category-filter">
+                                <option value="">All Categories</option>
+                                <option value="Hostel">Hostel</option>
+                                <option value="Academics">Academics</option>
+                                <option value="Wi-Fi">Wi-Fi</option>
+                                <option value="Canteen">Canteen</option>
+                                <option value="Library">Library</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="sort-options">
+                            <select id="suggestion-sort">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="most-voted">Most Voted</option>
+                                <option value="least-voted">Least Voted</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="feedback-list" id="suggestions-list">
+                        <!-- Suggestions will be added here dynamically -->
+                        <div class="no-data-message">No suggestions found. Be the first to add one!</div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="complaints-tab">
+                    <div class="section-header">
+                        <h2>Complaints</h2>
+                        <button id="add-complaint-btn" class="primary-btn">
+                            <i class="fas fa-plus"></i> Add Complaint
+                        </button>
+                    </div>
+                    <div class="filter-container">
+                        <div class="search-box">
+                            <input type="text" id="search-complaints" placeholder="Search complaints...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="category-filter">
+                            <select id="complaint-category-filter">
+                                <option value="">All Categories</option>
+                                <option value="Hostel">Hostel</option>
+                                <option value="Academics">Academics</option>
+                                <option value="Wi-Fi">Wi-Fi</option>
+                                <option value="Canteen">Canteen</option>
+                                <option value="Library">Library</option>
+                                <option value="Exam">Exam</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="sort-options">
+                            <select id="complaint-sort">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="most-voted">Most Voted</option>
+                                <option value="least-voted">Least Voted</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="feedback-list" id="complaints-list">
+                        <!-- Complaints will be added here dynamically -->
+                        <div class="no-data-message">No complaints found.</div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="my-feedback-tab">
+                    <div class="section-header">
+                        <h2>My Feedback</h2>
+                    </div>
+                    <div class="filter-container">
+                        <div class="search-box">
+                            <input type="text" id="search-my-feedback" placeholder="Search my feedback...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="type-filter">
+                            <select id="feedback-type-filter">
+                                <option value="">All Types</option>
+                                <option value="suggestion">Suggestions</option>
+                                <option value="complaint">Complaints</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="feedback-list" id="my-feedback-list">
+                        <!-- User's feedback will be added here dynamically -->
+                        <div class="no-data-message">Login to see your feedback.</div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="top-voted-tab">
+                    <div class="section-header">
+                        <h2>Top Voted Feedback</h2>
+                    </div>
+                    <div class="filter-container">
+                        <div class="type-filter">
+                            <select id="top-voted-type-filter">
+                                <option value="">All Types</option>
+                                <option value="suggestion">Suggestions</option>
+                                <option value="complaint">Complaints</option>
+                            </select>
+                        </div>
+                        <div class="time-filter">
+                            <select id="top-voted-time-filter">
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="all">All Time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="feedback-list" id="top-voted-list">
+                        <!-- Top voted feedback will be added here dynamically -->
+                        <div class="no-data-message">No feedback found.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="primary-btn">Login</button>
+            </form>
+            <p class="form-footer">Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="primary-btn">Register</button>
+            </form>
+            <p class="form-footer">Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+        </div>
+    </div>
+
+    <div id="add-suggestion-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Suggestion</h2>
+            <div class="suggestion-guidelines">
+                <h3>Guidelines for a Good Suggestion:</h3>
+                <ul>
+                    <li>Be specific and clear about your idea</li>
+                    <li>Explain how it benefits the college community</li>
+                    <li>Be constructive and positive</li>
+                    <li>Add images if they help illustrate your idea</li>
+                </ul>
+            </div>
+            <form id="suggestion-form">
+                <div class="form-group">
+                    <label for="suggestion-title">Title</label>
+                    <input type="text" id="suggestion-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="suggestion-category">Category</label>
+                    <select id="suggestion-category" required>
+                        <option value="">Select Category</option>
+                        <option value="Hostel">Hostel</option>
+                        <option value="Academics">Academics</option>
+                        <option value="Wi-Fi">Wi-Fi</option>
+                        <option value="Canteen">Canteen</option>
+                        <option value="Library">Library</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="suggestion-description">Description</label>
+                    <textarea id="suggestion-description" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="suggestion-image">Image (Optional)</label>
+                    <input type="file" id="suggestion-image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="suggestion-anonymous">
+                        Submit Anonymously
+                    </label>
+                </div>
+                <button type="submit" class="primary-btn">Submit Suggestion</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="add-complaint-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Complaint</h2>
+            <div class="complaint-checklist">
+                <h3>Complaint Checklist:</h3>
+                <div class="checklist-items">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="complaint-check" id="check-polite">
+                        I've written my complaint in a polite and respectful manner
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="complaint-check" id="check-details">
+                        I've included all necessary details (what, when, where)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="complaint-check" id="check-specific">
+                        My complaint is specific and clear
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="complaint-check" id="check-solution">
+                        I've suggested a possible solution (if applicable)
+                    </label>
+                </div>
+            </div>
+            <form id="complaint-form">
+                <div class="form-group">
+                    <label for="complaint-title">Title</label>
+                    <input type="text" id="complaint-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="complaint-category">Category</label>
+                    <select id="complaint-category" required>
+                        <option value="">Select Category</option>
+                        <option value="Hostel">Hostel</option>
+                        <option value="Academics">Academics</option>
+                        <option value="Wi-Fi">Wi-Fi</option>
+                        <option value="Canteen">Canteen</option>
+                        <option value="Library">Library</option>
+                        <option value="Exam">Exam</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="complaint-description">Description</label>
+                    <textarea id="complaint-description" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="complaint-image">Image (Optional)</label>
+                    <input type="file" id="complaint-image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="complaint-urgency">Urgency Level</label>
+                    <select id="complaint-urgency" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="complaint-anonymous">
+                        Submit Anonymously
+                    </label>
+                </div>
+                <button type="submit" class="primary-btn" id="submit-complaint-btn" disabled>Submit Complaint</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="feedback-detail-modal" class="modal">
+        <div class="modal-content wide-modal">
+            <span class="close">&times;</span>
+            <div id="feedback-detail-content">
+                <!-- Feedback details will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="fas fa-info-circle"></i>
+            <span id="notification-message"></span>
+            <span class="close-notification">&times;</span>
+        </div>
+    </div>
+
+    <script src="db.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
